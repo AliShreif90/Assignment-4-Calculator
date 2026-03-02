@@ -1,1 +1,18 @@
+1. Explain the purpose of require_once "Calculator.php"; in the index.php page. What would be the difference if include or require were used instead of require_once?
+Require_once “Calculator.php” asks PHP to load the code from Calculator.php before running the file and if the code can’t be loaded, then stop the script. This line lets PHP know what Calculator is. Thus, require_once makes the class definition available to index.php and assure that it is loaded one time only, even if the line is accidentally called several times. If “include” was used, the script will continue running but PHP will give a warning if the file is missing or there is a typing error in the name of the file. Using “require” will make PHP throw a fatal error and stop running the script if the file is missing
+
+2. How does the divide method specifically prevent and report an error for division by zero? Why is this critical consideration in calculator applications?
+Inside the calculator method, we have the logic as:
+if ($operator === "/" && $num2 == 0) {
+    return "<p>The calculation is $num1 / $num2. The answer is: cannot divide a number by zero.</p>";
+}
+This checks two things: First, if the operator is division, and second, if the second number is zero. If both are true, the calculator will not perform the division. On the contrary, it will return a friendly message explaining the error. This is critical in Calculator Apps since mathematically, division by zero is undefined, and programmatically, trying to divide by zero can cause warnings or errors, or crash the program. 
+
+3. Explain the difference between the Calculator class and the $Calculator object. Why do we create an instance of the class?
+The Calculator class the blueprint or definition which defines what a calculator can do whereas the  $Calculator object ($Calculator = new Calculator(); ), creates an instance (a real, usable object) based on the Calculator class. In addition, $Calculator is the actual object we interact with and use to call methods. Note: We create an instance since it let us keep the code organized, create multiple calculators in the future, and use the same logic in different parts of my application.
+4. Why is it important to check that the last two parameters are numbers in our Calculator class?
+The calculator works with integers or decimals not letters or strings. If we don’t check that the last two parameters are numbers in our Calculator class, PHP may work on converting strings to number in weird ways, producing unexpected results. Hence, checking is important. By doing that, I am making sure that the calculator only processes valid input, and it can help me return a clear error message. 
+
+5.Index.php handles the display of the results using HTML, while Calculator.php contains the core calculation logic. Discuss the importance of separating user interface (presentation) concerns from business logic.
+It is important to separate the user interface concerns from business logic for several reasons. First, a better way of organization and readability. In other words, it is easier to read and understand each file’s purpose by separating them. Second, this separation will help us reuse the calculator class on another page, API or a future assignment with a form. The third reason is maintainability. In other words, if calculation rules change, we update only Calculator.php, and if there are changes in the layout, we update only HTML (index.php). In addition, separation is important for Testing. When both files are separated, we can easily test Calculator.php without worrying about HTML and easily verify if the math is correct. 
 
